@@ -83,13 +83,6 @@ game_over = False
 board = create_board()
 turn = 0
 pygame.init()
-
-"""
-safely initializes all imported pygame modules regardless 
-if the modules actually need to be initialized; 
-but since it does for the ones that do, 
-it saves the trouble of manually initializing each module individually.
-"""
 SQUARESIZE = 100
 RADIUS = int(SQUARESIZE/2 - 5)
 width = COLUMN_COUNT * SQUARESIZE
@@ -138,7 +131,7 @@ while not game_over:
             if winning_move(board, 1):
                 label = game_font.render('Player 1 wins!', True, (255, 255, 0))
                 screen.blit(label, (40, 10))
-                print('Player 1 wins! lineality')
+                print('Player 1 wins!')
                 game_over = True
                 break # breaks the for loop
             
@@ -151,7 +144,7 @@ while not game_over:
                 if winning_move(board, 2):
                     label = game_font.render('Player 2 wins!', True, (255, 0, 0))
                     screen.blit(label, (40, 10))
-                    print('Player 2 wins! lineality')
+                    print('Player 2 wins!')
                     game_over = True
                     break
 
