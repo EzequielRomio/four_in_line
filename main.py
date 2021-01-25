@@ -2,6 +2,8 @@ import numpy as np
 import pygame
 import math
 
+pygame.init()
+
 ############# CONST ###############
 ROW_COUNT = 6      # AXIS Y
 COLUMN_COUNT = 7   # AXIS X
@@ -124,34 +126,35 @@ while not game_over:
                 #col = int(math.floor(posx/SQUARESIZE)) 
                 col = int(posx//SQUARESIZE)
 
-            if is_valid_location(board, col):
-                row = get_next_open_row(board, col)
-                drop_piece(board, row, col, 1)
+                if is_valid_location(board, col):
+                    row = get_next_open_row(board, col)
+                    drop_piece(board, row, col, 1)
 
-            if winning_move(board, 1):
-                label = game_font.render('Player 1 wins!', True, (255, 255, 0))
-                screen.blit(label, (40, 10))
-                print('Player 1 wins!')
-                game_over = True
-                break # breaks the for loop
-            
-        else:
-            posx = event.pos[0] 
-            col = int(math.floor(posx/SQUARESIZE)) 
-            if is_valid_location(board, col):
-                row = get_next_open_row(board, col)
-                drop_piece(board, row, col, 2)
-                if winning_move(board, 2):
-                    label = game_font.render('Player 2 wins!', True, (255, 0, 0))
+                if winning_move(board, 1):
+                    label = game_font.render('Player 1 wins!', True, (255, 255, 0))
                     screen.blit(label, (40, 10))
-                    print('Player 2 wins!')
+                    print('Player 1 wins!')
                     game_over = True
-                    break
+                    break # breaks the for loop
+            
+            else:
+                posx = event.pos[0] 
+                col = int(math.floor(posx/SQUARESIZE)) 
+                if is_valid_location(board, col):
+                    row = get_next_open_row(board, col)
+                    drop_piece(board, row, col, 2)
+                    if winning_move(board, 2):
+                        label = game_font.render('Player 2 wins!', True, (255, 0, 0))
+                        screen.blit(label, (40, 10))
+                        print('Player 2 wins!')
+                        game_over = True
+                        break
 
-        print_board(board)            
-        draw_board(board)
-        turn += 1
-        turn %= 2 # if 0 player_1, if 1 player_2
+            print_board(board)            
+            draw_board(board)
+            turn += 1
+            turn %= 2 # if 0 player_1, if 1 player_2
+
 
 draw_board(board)
 pygame.display.update()
